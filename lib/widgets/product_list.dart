@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app_flutter/global_variables.dart';
-import 'package:shop_app_flutter/widgets/product_card.dart';
 import 'package:shop_app_flutter/pages/product_details_page.dart';
+import 'package:shop_app_flutter/widgets/product_card.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -111,25 +111,31 @@ class _ProductListState extends State<ProductList> {
                     ),
                     itemBuilder: (context, index) {
                       final product = products[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return ProductDetailsPage(product: product);
-                              },
-                            ),
-                          );
-                        },
-                        child: ProductCard(
-                          title: product['itle'] as String,
-                          price: product['price'] as double,
-                          image: product['imageUrl'] as String,
-                          backgroundColor: index.isEven
-                              ? const Color.fromRGBO(216, 240, 253, 1)
-                              : const Color.fromRGBO(245, 247, 249, 1),
-                        ),
-                      );
+
+                      if (selectedFilter == 'All' ||
+                          selectedFilter == product['company']) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ProductDetailsPage(product: product);
+                                },
+                              ),
+                            );
+                          },
+                          child: ProductCard(
+                            title: product['title'] as String,
+                            price: product['price'] as double,
+                            image: product['imageUrl'] as String,
+                            backgroundColor: index.isEven
+                                ? const Color.fromRGBO(216, 240, 253, 1)
+                                : const Color.fromRGBO(245, 247, 249, 1),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
                     },
                   );
                 } else {
@@ -137,25 +143,31 @@ class _ProductListState extends State<ProductList> {
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       final product = products[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return ProductDetailsPage(product: product);
-                              },
-                            ),
-                          );
-                        },
-                        child: ProductCard(
-                          title: product['title'] as String,
-                          price: product['price'] as double,
-                          image: product['imageUrl'] as String,
-                          backgroundColor: index.isEven
-                              ? const Color.fromRGBO(216, 240, 253, 1)
-                              : const Color.fromRGBO(245, 247, 249, 1),
-                        ),
-                      );
+
+                      if (selectedFilter == 'All' ||
+                          selectedFilter == product['company']) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ProductDetailsPage(product: product);
+                                },
+                              ),
+                            );
+                          },
+                          child: ProductCard(
+                            title: product['title'] as String,
+                            price: product['price'] as double,
+                            image: product['imageUrl'] as String,
+                            backgroundColor: index.isEven
+                                ? const Color.fromRGBO(216, 240, 253, 1)
+                                : const Color.fromRGBO(245, 247, 249, 1),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
                     },
                   );
                 }
